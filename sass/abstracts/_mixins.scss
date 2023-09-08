@@ -1,0 +1,74 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Media Query Manager
+/*
+0 - 600px for a Phone
+600px - 900px for a Tablet portrait
+900px - 1200px for a Tablet landscape
+
+1200px - 1800px is where our normal apply
+
+1800px + for a Big Desktop
+*/
+
+/* $breakpoint argument choices:
+- phone,
+- tab-port,
+- tab-land,
+- big-desktop
+*/
+
+// 1em = 16px
+
+
+// THE ORDER: Base + Typography > General layout + GRID > Page layout > Components
+
+
+// The FORMULA 0.3 x 16 = 4.8px (font-size: 30%;)
+
+@mixin respond($breakpoint) {
+    // 600px
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) {
+            @content
+        }
+    };
+    // 900px
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) {
+            @content
+        }
+    };
+    // 1200px
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) {
+            @content
+        }
+    };
+    // 1800px +
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) {
+            @content
+        };
+    }
+
+    //My option for special cases 1450px and less
+    @if $breakpoint == special-case {
+        @media (max-width: 90.625em) {
+            @content
+        };
+    }
+}
